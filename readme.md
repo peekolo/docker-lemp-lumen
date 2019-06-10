@@ -2,8 +2,7 @@
 
 ```
 $ docker-compose up -d
-$ docker exec -it <container id> bash
-$ composer create-project laravel/lumen .
+$ docker exec -it <container id> composer create-project laravel/lumen .
 $ nano .env
 $ php artisan migrate --seed
 ```
