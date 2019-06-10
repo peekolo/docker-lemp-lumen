@@ -9,11 +9,13 @@ services:
     ports:
       - "80:80"
   php:
+    container_name: app
     build: images/php
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html/app/public
     command: php-fpm
+      #bash -c "php-fpm && composer create-project laravel/lumen test"
     links:
       - db
       - cache
