@@ -2,6 +2,6 @@
 
 ```
 $ docker-compose up -d
-$ chmod +X lumen_setup.sh
+$ chmod +x lumen_setup.sh
 $ ./lumen_setup.sh
 ```
