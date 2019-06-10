@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  nginx:
+    build: images/nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
+    ports:
+      - "80:80"
+  php:
+    build: images/php
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html/app/public
+    command: php-fpm
+    links:
+      - db
+      - cache
+    ports:
+      - "9000:9000"
+    environment:
+      APP_DEBUG: 'true'
+      DB_HOST: db
+      DB_DATABASE: nplm_db
+      DB_USERNAME: dbuser
+      DB_PASSWORD: dbuserPass1234
+      REDIS_PORT: 6379
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: N8dtMt5f
+      MYSQL_DATABASE: nplm_db
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbuserPass1234
+  cache:
+        image: redis:3.0
+        ports:
+            - "63791:6379"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links: 
+      - db:db
+    ports:
+      - 8000:80
+    environment:
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbuserPass1234
+      MYSQL_ROOT_PASSWORD: N8dtMt5f
