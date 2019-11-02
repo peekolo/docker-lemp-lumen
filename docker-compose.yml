@@ -12,7 +12,7 @@ services:
     container_name: app
     build: images/php
     volumes:
-      - .:/var/www/html
+      - ./html:/var/www/html
     working_dir: /var/www/html/app/public
     command: php-fpm
       #bash -c "php-fpm && composer create-project laravel/lumen test"
@@ -32,6 +32,8 @@ services:
     image: mysql:5.7
     ports:
       - "3306:3306"
+    volumes:
+      - ./dbmount:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: N8dtMt5f
       MYSQL_DATABASE: nplm_db
